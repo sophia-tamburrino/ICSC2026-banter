@@ -1,6 +1,6 @@
 # ICSC-banter-classifier
 
-This is a tutorial on how to generate a dataset consisting of 6,461 pairs of scraped dialogue from Archive of Our Own (AO3), with an emphasis on banter. Note that because authors on AO3 may choose to either: a) delete their works or b) reserve them for logged-in AO3 users only at any given time, this number is subject to change. We used this dataset for annotation geared towards banter identification, though our annotated dataset consisted of 7,440 pairs. 
+This is a tutorial on how to generate a dataset consisting of 6,461 pairs of scraped dialogue from Archive of Our Own (AO3), with an emphasis on banter. Note that because authors on AO3 may choose to either: a) delete their works or b) reserve them for logged-in AO3 users only at any given time, this number is subject to change. We used this dataset for annotation geared towards banter identification, though our annotated dataset consisted of 7,440 pairs. Additionally, some novels will yield HTTP 525 errors unpredictably.
 
 
 ### Scraping Fanfiction Text 
