@@ -33,7 +33,7 @@ tags = []
 # that are written to the csv and then forgotten
 seen_ids = set()
 
-# 
+
 # Ask the user for:
 # a url of a works listed page
 # e.g. 
@@ -181,8 +181,9 @@ def update_url_to_next_page():
         else:
             url = url + "?page=2"
 
-
+#
 # modify the base_url to include the new tag, and save to global url
+#
 def add_tag_to_url(tag):
     global url
     key = "&work_search%5Bother_tag_names%5D="
@@ -237,8 +238,10 @@ def make_readme():
     with open(csv_name + "_readme.txt", "w") as text_file:
         text_file.write("url: " + url + "\n" + "num_requested_fic: " + str(num_requested_fic) + "\n" + "retreived on: " + str(datetime.datetime.now()))
 
+#
 # reset flags to run again
 # note: do not reset seen_ids
+#
 def reset():
     global page_empty
     global num_recorded_fic

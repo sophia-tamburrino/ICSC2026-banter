@@ -1,9 +1,13 @@
+# This will generate a dataset consisting of 6,461 pairs of scraped dialogue from Archive of Our Own (AO3), with an emphasis on banter. 
+# Note that because authors on AO3 may choose to either: a) delete their works or b) reserve them for logged-in AO3 users only at any given time, this number is subject to change. 
+# We used this dataset for annotation geared towards banter identification, though our annotated dataset consisted of 7,440 pairs. 
+
 import csv	
 import hashlib
 import re
 import json
 
-
+# using regular expressions, hash the given pair
 def hash_pair(string1: str, string2: str) -> str:
 	 combined_string = string1 + string2
 	 # \W is equivalent to [^a-zA-Z0-9_] in Python's regex
@@ -29,7 +33,6 @@ def hash_ground_truth():
 			if 'Banter' not in value:
 				GT[key] = value
 	
-		#print(GT)
 
 	with open('hash_ground_truth.json', 'w') as file:
 		json.dump(GT, file)
@@ -42,7 +45,7 @@ def load_ground_truth():
 # Paper authors run this once to generate the hashed labels; you will not be able to run this
 # because we are unable to make the csv on line 23 available on github due to it containing 
 # dialogue from the novels
-#hash_ground_truth()
+# hash_ground_truth()
 
 hash_annotations = load_ground_truth()
 

@@ -1,3 +1,5 @@
+# This file will go through notmaturecorrect.csv and notmaturecorrect_meta.csv to grab pairs of dialogue that match our requirements.
+
 import os
 import csv
 import re
@@ -6,9 +8,7 @@ import pandas as pd
 import matplotlib.pyplot as plt
 from matplotlib import pyplot as plt
 import numpy as np
-import random
-
-# This file will go through notmaturecorrect.csv and notmaturecorrect_meta.csv to grab pairs of dialogue that match our requirements. 
+import random 
 
 # The get_pairs function takes the scraped data and metadata and goes through the dataframe line-by-line to pull a "dialogue" and "response".
 # Notes: In order to be considered valid dialogue, it must have at least two double quotation marks (one to begin and one to end) within the line. 
@@ -133,7 +133,6 @@ def create_csv(pairs, meta):
 
 # The main function executes the get_pairs and create_csv methods, creating a final 'dialogue-pairs.csv' and 'meta-pairs.csv'.
 # Dependencies: Reads the pairs and pairs_meta lists from the above function and creates the 'dialogue-pairs.csv' and 'meta-pairs.csv' functions. 
-# Arguments: Pairs and meta from the returned lists in the above function.
 
 def main():
 

@@ -1,3 +1,5 @@
+# Given a URL, scrape all information from the AO3 novels to write to 'notmaturecorrect.csv'.
+
 import subprocess
 import requests
 import json
@@ -9,7 +11,11 @@ import csv
 import pandas as pd
 from unidecode import unidecode
 
-# downloads the HTML at a specific URL
+#
+# The get_url_data function downloads the HTML at a given URL.
+# Dependencies: Returns the HTML data.
+# Arguments: 'url' is the given url used to grab HTML data.
+#
 def get_url_data(url = ""):
     try:
         request = Request(url, headers = {'User-Agent' :\
@@ -23,15 +29,12 @@ def get_url_data(url = ""):
         print(e)
         return str(e)
 
+#
+# The extract_text function grabs the body text from the scraped HTML.
+# Dependencies: Takes in the novel data, returns the text extracted from the novel.
+# Arguments: 'soup' is the scraped novel data.
+#
 def extract_text(soup): 
-    # html = get_url_data(url)
-    # soup = BeautifulSoup(html, features="html.parser")
-
-    # # kill all script and style elements
-    # for script in soup(["script", "style"]):
-    #     script.extract()    # rip it out
-
-     # all the novel <p>'s are nested under <div id = "chapters", role = "article">
     try:
         # this code block is from AO3Scraper's get_fanfics.py (https://github.com/radiolarian/AO3Scraper/blob/master/ao3_get_fanfics.py): 
         body_texts = soup.find("div", id= "chapters")
@@ -44,15 +47,12 @@ def extract_text(soup):
         print(e)
         return ""
 
-
+#
+# The extract_author function grabs the author from the scraped HTML.
+# Dependencies: Takes in the novel data, returns the author that wrote the novel.
+# Arguments: 'soup' is the scraped novel data.
+#
 def extract_author(soup): 
-    # html = get_url_data(url)
-    # soup = BeautifulSoup(html, features="html.parser")
-
-    # # kill all script and style elements
-    # for script in soup(["script", "style"]):
-    #     script.extract()    # rip it out
-
     try:
         find_author = soup.find("a", rel= "author")
         author = find_author.get_text(strip=True)
@@ -65,16 +65,12 @@ def extract_author(soup):
 
     #return author
 
+#
+# The extract_title function grabs the title from the scraped HTML.
+# Dependencies: Takes in the novel data, returns the title of the novel.
+# Arguments: 'soup' is the scraped novel data.
+#
 def extract_title(soup): 
-    #<h2 class="title heading"></h2>; each fic only has one title, words sep by " "
-    # html = get_url_data(url)
-    # soup = BeautifulSoup(html, features="html.parser")
-
-    # # kill all script and style elements
-    # for script in soup(["script", "style"]):
-    #     script.extract()    # rip it out
-
-    #all the titles are under <h2 class="title heading"></h2>
     try:
         find_title = soup.find("h2", class_="title heading")
         title = find_title.get_text(strip=True)
@@ -87,11 +83,12 @@ def extract_title(soup):
 
     #return title
 
+#
+# The extract_wordcount function grabs the number of words from the scraped HTML.
+# Dependencies: Takes in the novel data, returns the number of words in the novel.
+# Arguments: 'soup' is the scraped novel data.
+#
 def extract_wordcount(soup):
-    # #<dd class="words">12,254</dd>
-    # html = get_url_data(url)
-    # soup = BeautifulSoup(html, features="html.parser")
-
     # kill all script and style elements
     for script in soup(["script", "style"]):
         script.extract()
@@ -107,15 +104,12 @@ def extract_wordcount(soup):
         return ""
     #return wordcount
 
+#
+# The extract_fandom function grabs the fandom of the scraped HTML.
+# Dependencies: Takes in the novel data, returns the fandom of the novel.
+# Arguments: 'soup' is the scraped novel data.
+#
 def extract_fandom(soup):
-    #<dd class="fandom tags">
-    # html = get_url_data(url)
-    # soup = BeautifulSoup(html, features="html.parser")
-
-    # # kill all script and style elements
-    # for script in soup(["script", "style"]):
-    #     script.extract()    # rip it out
-
     try:
         find_fandom = soup.find("dd", class_= "fandom tags")
         fandom_list = find_fandom.find_all("a", class_= "tag")
@@ -127,14 +121,12 @@ def extract_fandom(soup):
         print(e)
         return ""
 
+#
+# The extract_category function grabs the category from the scraped HTML.
+# Dependencies: Takes in the novel data, returns the category of the novel.
+# Arguments: 'soup' is the scraped novel data.
+#
 def extract_category(soup): 
-    #<dd class="category tags">
-    # html = get_url_data(url)
-    # soup = BeautifulSoup(html, features="html.parser")
-
-    # for script in soup(["script", "style"]):
-    #     script.extract()
-    
     try: 
         find_category = soup.find("dd", class_="category tags")
         cat_list = find_category.find_all("a", class_= "tag")
@@ -146,6 +138,11 @@ def extract_category(soup):
         print(e)
         return ""
 
+#
+# The extract_data function grabs the work_id, body text, author, title, word count, fandom, and category utelizing all the above functions.
+# Dependencies: Takes in the novel and URL and turns it into soup, then places into a data dictionary to be returned.
+# Arguments: Takes in the novel and URL.
+#
 def extract_data(url, novel):
     html = get_url_data(url)
     soup = BeautifulSoup(html, features="html.parser")
@@ -162,7 +159,6 @@ def extract_data(url, novel):
             'fandom': extract_fandom(soup), 
             'category': extract_category(soup)}
     return data
-
 
 def main():
     #obtain ids
@@ -182,17 +178,9 @@ def main():
             count += 1
             print('scraping ID: ', novel, " count: ", count)
             url = "https://archiveofourown.org/works/"+novel+'?view_adult=true&view_full_work=true'
-            # text = extract_text("https://archiveofourown.org/works/"+novel+'?view_adult=true&view_full_work=true')
-            # author = extract_author("https://archiveofourown.org/works/"+novel+'?view_adult=true&view_full_work=true')
-            # title = extract_title("https://archiveofourown.org/works/"+novel+'?view_adult=true&view_full_work=true')
-            # wordcount = extract_wordcount("https://archiveofourown.org/works/"+novel+'?view_adult=true&view_full_work=true')
-            # fandom = extract_fandom("https://archiveofourown.org/works/"+novel+'?view_adult=true&view_full_work=true')
-            # category = extract_category("https://archiveofourown.org/works/"+novel+'?view_adult=true&view_full_work=true')
-            #writer.writerow({'work_id': novel, 'body': text})
             writer.writerow(extract_data(url, novel))
             print("done writing", novel)
             sleep(2)
-
     
 main()
 print("All done!")    
