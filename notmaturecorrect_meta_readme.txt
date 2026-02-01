@@ -1,3 +1,0 @@
-url: https://archiveofourown.org/works?commit=Sort+and+Filter&work_search%5Bsort_column%5D=kudos_count&work_search%5Bother_tag_names%5D=Banter&exclude_work_search%5Brating_ids%5D%5B%5D=12&exclude_work_search%5Brating_ids%5D%5B%5D=9&exclude_work_search%5Brating_ids%5D%5B%5D=13&work_search%5Bexcluded_tag_names%5D=Rape%2FNon-Con&work_search%5Bcrossover%5D=&work_search%5Bcomplete%5D=&work_search%5Bwords_from%5D=&work_search%5Bwords_to%5D=&work_search%5Bdate_from%5D=&work_search%5Bdate_to%5D=&work_search%5Bquery%5D=&work_search%5Blanguage_id%5D=&tag_id=Banter
-num_requested_fic: 100
-retreived on: 2026-02-01 20:05:18.137325
